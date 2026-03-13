@@ -1,0 +1,49 @@
+info:
+  app:
+    name: Task Manager
+    version: 1.0.0
+    description: User management application
+    java:
+      version: ${java.version}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: users-app
+
+  # Настройки базы данных postgres2
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres2
+    username: postgres
+    password: Fadc766e!
+    driver-class-name: org.postgresql.Driver
+
+    # Настройки HikariCP
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      pool-name: HikariCP-UsersApp
+      connection-test-query: SELECT 1
+      validation-timeout: 5000
+      leak-detection-threshold: 60000
+      auto-commit: true
+
+  # Автоматически создавать схему базы данных
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
